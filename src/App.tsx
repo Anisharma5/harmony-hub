@@ -8,6 +8,9 @@ import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import StudentsPage from "./pages/Students";
+import StaffPage from "./pages/Staff";
+import ClassesPage from "./pages/Classes";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +33,9 @@ const App = () => (
               }
             >
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/students" element={<StudentsPage />} />
+              <Route path="/staff" element={<StaffPage />} />
+              <Route path="/classes" element={<ClassesPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
