@@ -11,6 +11,12 @@ import Dashboard from "./pages/Dashboard";
 import StudentsPage from "./pages/Students";
 import StaffPage from "./pages/Staff";
 import ClassesPage from "./pages/Classes";
+import AttendancePage from "./pages/Attendance";
+import GradesPage from "./pages/Grades";
+import TimetablePage from "./pages/Timetable";
+import FeesPage from "./pages/Fees";
+import NoticesPage from "./pages/Notices";
+import HolidaysPage from "./pages/Holidays";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +42,12 @@ const App = () => (
               <Route path="/students" element={<StudentsPage />} />
               <Route path="/staff" element={<StaffPage />} />
               <Route path="/classes" element={<ClassesPage />} />
+              <Route path="/attendance" element={<AttendancePage />} />
+              <Route path="/grades" element={<GradesPage />} />
+              <Route path="/timetable" element={<TimetablePage />} />
+              <Route path="/fees" element={<FeesPage />} />
+              <Route path="/notices" element={<NoticesPage />} />
+              <Route path="/holidays" element={<HolidaysPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
