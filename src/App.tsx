@@ -15,8 +15,10 @@ import AttendancePage from "./pages/Attendance";
 import GradesPage from "./pages/Grades";
 import TimetablePage from "./pages/Timetable";
 import FeesPage from "./pages/Fees";
+import PaymentsPage from "./pages/Payments";
 import NoticesPage from "./pages/Notices";
 import HolidaysPage from "./pages/Holidays";
+import SettingsPage from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,8 +48,10 @@ const App = () => (
               <Route path="/grades" element={<GradesPage />} />
               <Route path="/timetable" element={<TimetablePage />} />
               <Route path="/fees" element={<FeesPage />} />
+              <Route path="/payments" element={<PaymentsPage />} />
               <Route path="/notices" element={<NoticesPage />} />
               <Route path="/holidays" element={<HolidaysPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
