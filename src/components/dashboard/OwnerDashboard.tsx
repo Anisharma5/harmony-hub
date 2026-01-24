@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useDashboardStats } from '@/hooks/useDashboardStats';
 import { Users, UserCog, DollarSign, TrendingUp, ClipboardCheck, Bell, CreditCard, AlertCircle } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { DashboardCharts } from './DashboardCharts';
 
 export const OwnerDashboard = () => {
   const { data: stats, isLoading } = useDashboardStats();
@@ -133,6 +134,9 @@ export const OwnerDashboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Charts Section */}
+      <DashboardCharts />
     </div>
   );
 };
