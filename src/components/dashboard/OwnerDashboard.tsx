@@ -3,6 +3,7 @@ import { useDashboardStats } from '@/hooks/useDashboardStats';
 import { Users, UserCog, DollarSign, TrendingUp, ClipboardCheck, Bell, CreditCard, AlertCircle } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DashboardCharts } from './DashboardCharts';
+import { QuickActions } from './QuickActions';
 
 export const OwnerDashboard = () => {
   const { data: stats, isLoading } = useDashboardStats();
@@ -134,6 +135,9 @@ export const OwnerDashboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Quick Actions */}
+      <QuickActions />
 
       {/* Charts Section */}
       <DashboardCharts />
