@@ -41,8 +41,9 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Search, Pencil, Trash2, Users, Loader2 } from 'lucide-react';
+import { Plus, Search, Pencil, Trash2, Users, Loader2, FileText } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { ReportCardDialog } from '@/components/reports/ReportCardDialog';
 
 export default function StudentsPage() {
   const { isOwner, isFinanceRole } = useAuth();
@@ -55,6 +56,7 @@ export default function StudentsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [editingStudent, setEditingStudent] = useState<string | null>(null);
+  const [reportCardStudent, setReportCardStudent] = useState<{ id: string; name: string } | null>(null);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -332,7 +334,7 @@ export default function StudentsPage() {
                   <TableHead>Class/Section</TableHead>
                   <TableHead>Parent</TableHead>
                   <TableHead>Status</TableHead>
-                  {canManage && <TableHead className="w-[100px]">Actions</TableHead>}
+                  <TableHead className="w-[120px]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -374,41 +376,54 @@ export default function StudentsPage() {
                           {student.is_active ? 'Active' : 'Inactive'}
                         </Badge>
                       </TableCell>
-                      {canManage && (
                         <TableCell>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1">
                             <Button
                               variant="ghost"
                               size="icon"
-                              onClick={() => setEditingStudent(student.id)}
+                              title="Report Card"
+                              onClick={() => setReportCardStudent({
+                                id: student.id,
+                                name: `${student.profile?.first_name || ''} ${student.profile?.last_name || ''}`.trim()
+                              })}
                             >
-                              <Pencil className="h-4 w-4" />
+                              <FileText className="h-4 w-4" />
                             </Button>
-                            <AlertDialog>
-                              <AlertDialogTrigger asChild>
-                                <Button variant="ghost" size="icon">
-                                  <Trash2 className="h-4 w-4 text-destructive" />
+                            {canManage && (
+                              <>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => setEditingStudent(student.id)}
+                                >
+                                  <Pencil className="h-4 w-4" />
                                 </Button>
-                              </AlertDialogTrigger>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>Delete Student</AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    Are you sure you want to delete this student? This action cannot
-                                    be undone.
-                                  </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                  <AlertDialogAction onClick={() => handleDelete(student.id)}>
-                                    Delete
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
+                                <AlertDialog>
+                                  <AlertDialogTrigger asChild>
+                                    <Button variant="ghost" size="icon">
+                                      <Trash2 className="h-4 w-4 text-destructive" />
+                                    </Button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>Delete Student</AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        Are you sure you want to delete this student? This action cannot
+                                        be undone.
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                      <AlertDialogAction onClick={() => handleDelete(student.id)}>
+                                        Delete
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+                              </>
+                            )}
                           </div>
                         </TableCell>
-                      )}
                     </TableRow>
                   ))
                 )}
@@ -417,6 +432,14 @@ export default function StudentsPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Report Card Dialog */}
+      <ReportCardDialog
+        studentId={reportCardStudent?.id}
+        studentName={reportCardStudent?.name || ''}
+        open={!!reportCardStudent}
+        onOpenChange={(open) => !open && setReportCardStudent(null)}
+      />
     </div>
   );
 }
