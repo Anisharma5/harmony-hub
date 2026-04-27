@@ -92,7 +92,7 @@ export function useGrades(sectionId?: string, subjectId?: string) {
   });
 
   const updateGrade = useMutation({
-    mutationFn: async ({ id, ...updates }: Partial<GradeRecord> & { id: string }) => {
+    mutationFn: async ({ id, ...updates }: Partial<Omit<GradeRecord, 'students' | 'subjects'>> & { id: string }) => {
       const { error } = await supabase
         .from('grades')
         .update(updates)
