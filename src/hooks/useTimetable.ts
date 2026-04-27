@@ -89,7 +89,7 @@ export function useTimetable(sectionId?: string) {
   });
 
   const updateSlot = useMutation({
-    mutationFn: async ({ id, ...updates }: Partial<TimetableSlot> & { id: string }) => {
+    mutationFn: async ({ id, ...updates }: Partial<Omit<TimetableSlot, 'subjects' | 'staff'>> & { id: string }) => {
       const { error } = await supabase
         .from('timetable_slots')
         .update(updates)
